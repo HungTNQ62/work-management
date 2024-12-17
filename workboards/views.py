@@ -41,7 +41,7 @@ class WorkboardsListView(generics.ListCreateAPIView):
             )
             return JsonResponse(
                 ResponseObject(
-                    code=201, message="Create workboard successfully"
+                    code=201, message="Create workboard successfully", data=workboards_serializer.data
                 ).to_dict()
             )
         else:
@@ -64,7 +64,7 @@ class CreateTaskList(generics.CreateAPIView):
             )
             return JsonResponse(
                 ResponseObject(
-                    code=201, message="Create task list successfully"
+                    code=201, message="Create task list successfully", data=tasklists_serializer.data
                 ).to_dict()
             )
         else:

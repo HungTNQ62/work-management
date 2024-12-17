@@ -44,7 +44,7 @@ class CreateTask(generics.CreateAPIView):
 
                 return JsonResponse(
                     ResponseObject(
-                        code=201, message="Create task successfully"
+                        code=201, message="Create task successfully", data=tasks_serializer.data
                     ).to_dict()
                 )
             except Exception as e:

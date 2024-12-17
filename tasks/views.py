@@ -9,6 +9,7 @@ from work_management.settings import EMAIL_HOST_USER
 from .models import Tasks
 from .serializers import TasksSerializer
 from comment.models import Comment
+from comment.serializers import CommentSerializer
 from attachment.serializers import AttachmentSerializer
 from attachment.models import Attachment
 
@@ -82,9 +83,9 @@ class TaskAddComment(generics.CreateAPIView):
         if not request.data.get('comment') or not request.data.get('creator'):
             return JsonResponse(ErrorResponse(errors="Missing comment or creator").to_dict())
         try:
-            Comment.objects.create(comment=request.data.get('comment'), creator_id=request.data.get('creator'), task_id=task_id)
+            new_comment = Comment.objects.create(comment=request.data.get('comment'), creator_id=request.data.get('creator'), task_id=task_id)
             return JsonResponse(
-                ResponseObject(message="Add comment successfully").to_dict()
+                ResponseObject(data=CommentSerializer(new_comment).data, message="Add comment successfully").to_dict()
             )
         except Exception as e:
             return JsonResponse(ErrorResponse(errors=str(e)).to_dict())
@@ -101,7 +102,7 @@ class TaskAddAttachment(generics.CreateAPIView):
             if serializer.is_valid():
                 Attachment.objects.create(name=request.data.get('name'), creator_id=request.data.get('creator'), task_id=task_id, file=request.data.get('file'))
                 return JsonResponse(
-                    ResponseObject(message="Add attachment successfully").to_dict()
+                    ResponseObject(data=serializer.data, message="Add attachment successfully").to_dict()
                 )
             return JsonResponse(ErrorResponse(errors="Something is wrong").to_dict())
         except Exception as e:

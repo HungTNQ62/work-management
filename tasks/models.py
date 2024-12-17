@@ -1,5 +1,4 @@
 from django.db import models
-from rest_framework.pagination import PageNumberPagination
 
 from users.models import User
 from tasklists.models import Tasklists
@@ -19,5 +18,3 @@ class Tasks(models.Model):
     status = models.CharField(max_length=1, default="2", choices=STATUS)
     participants = models.TextField(default="", blank=True, null=True)
 
-class SmallPagesPagination(PageNumberPagination):  
-    page_size = 5

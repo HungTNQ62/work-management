@@ -38,7 +38,7 @@ class PermissionMiddleWare:
             if (test_string in request.build_absolute_uri()):
                 check = False
                 task = Tasks.objects.get(id=view_kwargs.get("id"))
-                if user_id == task.creator:
+                if user_id == task.creator.id:
                     check = True
                 participants = task.participants.split(",")
                 for participant in participants:

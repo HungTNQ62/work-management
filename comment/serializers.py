@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from .models import Tasks
+from .models import Comment
 
-class TasksSerializer(serializers.ModelSerializer):
+class CommentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Tasks
-        fields = ('id', 'comment', 'creator', 'task')
+        model = Comment
+        fields = ('id', 'comment', 'creator')
         
